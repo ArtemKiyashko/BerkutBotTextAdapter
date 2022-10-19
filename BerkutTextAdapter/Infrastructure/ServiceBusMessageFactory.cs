@@ -18,7 +18,7 @@ namespace BerkutTextAdapter.Infrastructure
         {
             var tgMessage = _tgMessageFactory.GetMessage(update);
 
-            if (tgMessage is null) return default;
+            if (!tgMessage.IsForTextProcessing()) return default;
 
             ServiceBusMessage serviceBusMessage = new ServiceBusMessage(tgMessage.ToJson());
             serviceBusMessage.SessionId = tgMessage.Chat.Id.ToString();
